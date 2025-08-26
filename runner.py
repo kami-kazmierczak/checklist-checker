@@ -4,6 +4,12 @@ from datetime import datetime
 
 from checks import ALL_CHECKS
 
+try:
+    from gsheet_sync import batch_set_results 
+    _HAS_SHEETS = True
+except Exception:
+    _HAS_SHEETS = False
+
 STATUS_ICON = {
     "PASS": "✅",
     "WARN": "⚠️ ",
@@ -16,6 +22,16 @@ def ensure_root(u: str) -> str:
     scheme = p.scheme or "https"
     netloc = p.netloc or p.path
     return urlunsplit((scheme, netloc, "/", "", ""))
+
+def _comment_from_res(res: dict) -> str:
+    """Zbiera najważniejszą notkę do arkusza (nie przegina z objętością)."""
+    return (
+        res.get("note")
+        or res.get("error")
+        or res.get("message")
+        or ""
+    )
+
 
 def main():
     ap = argparse.ArgumentParser(description="SEO Checker MVP")
@@ -69,6 +85,25 @@ def main():
         f.write(json_str)
 
     print(f"\n✅ Raport zapisany do pliku: {fname}")
+
+    # Google sheet
+    if _HAS_SHEETS:
+        try:
+            sheet_payload = []
+            for r in results:
+                sheet_payload.append({
+                    "name": r["name"],                         
+                    "passed": (r.get("status") == "PASS"),
+                    "comment": _comment_from_res(r),          
+                    "raw": r,                                  
+                })
+            batch_set_results(sheet_payload)
+            print("🟢 Zaktualizowano Google Sheet (Stan/Data/Komentarz/JSON).")
+        except Exception as e:
+            print(f"⚪️ Pominięto aktualizację Google Sheet: {e}")
+    else:
+        print("ℹ️ Google Sheets pominięty (brak importu gsheets_simple).")
+
 
     # exit code
     code = 0

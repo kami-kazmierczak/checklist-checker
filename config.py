@@ -26,6 +26,8 @@ NOFOLLOW_KEYWORDS = [
     "koszyk", "cart",
     "logowanie", "zaloguj", "rejestracja",
     "Privacy Policy", "Terms of Service", "Terms and Conditions",
+    "Ochrona danych", "Polityka prywatności", "Polityka cookies",
+    "Zwroty i reklamacje", "Dostawa i płatności",
 ]
 NOFOLLOW_SOCIAL_KEYWORDS = [
     "facebook", "instagram", "linkedin", "twitter",
@@ -45,9 +47,9 @@ BLOG_HINTS = [
 # Podstawowe ścieżki do audytu
 BLOG_PAGE   = "/blog/"
 SHOP_PAGE   = ""
-BLOG_POST   = "/jak-laczyc-talenty-gallupa-w-zespole/"
+BLOG_POST   = "/jak-tworzyc-tresci-cytowane-przez-ai/"
 PRODUCT_URL = ""
-CONTACT_PAGE = "/contact/"
+CONTACT_PAGE = "/kontakt"
 
 
 # --- Check: Title ---
@@ -64,9 +66,9 @@ ALT_INCLUDE_SVG = True
 
 # --- Check: PageSpeed Insights ---
 # Opcjonalny klucz (bez klucza też działa, ale z mniejszym limitem zapytań)
-PSI_API_KEY = "AIzaSyBG3Nb1hYTQgeJpGHcxSyoQu9cqkqyeW9c"
+PSI_API_KEY = os.getenv("PSI_API_KEY")
 # Jakie strategie sprawdzać (mobile/desktop)
-PSI_STRATEGIES = os.getenv("PSI_STRATEGIES")
+PSI_STRATEGIES = ["mobile", "desktop"]
 
 
 # --- Dodatkowe ścieżki / sitemapy ---

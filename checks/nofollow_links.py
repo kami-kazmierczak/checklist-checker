@@ -80,7 +80,7 @@ def run(root):
         status = "WARN"
 
     return {
-        "name": "nofollow_policy_links",
+        "name": "nofollow_links_check",
         "status": status,
         "metrics": {
             "candidates": len(candidates),
