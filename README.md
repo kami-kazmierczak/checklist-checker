@@ -26,4 +26,4 @@ GSPREAD_GID=12312312         # GID do tabeli<br>
   
 </ul>
 <h2>Uruchomienie audytu</h2>
-<p>💻Komenda: <span style="color:green;">python main.py https://example.com/ --pretty</span></p>
+<p>💻Komenda: <span style="color:green;">python runner.py https://example.com/ --pretty</span></p>
